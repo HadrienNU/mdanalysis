@@ -297,6 +297,34 @@ class ByResSelection(UnarySelection):
         return group[mask]
 
 
+class ClosestSelection(Selection):
+    token = "closest"
+    precedence = 1
+
+    def __init__(self, parser, tokens):
+        super().__init__(parser, tokens)
+        self.periodic = parser.periodic
+        self.nb_to_keep = int(tokens.popleft())
+        self.sel = parser.parse_expression(self.precedence)
+
+    @return_empty_on_apply
+    def _apply(self, group):
+        indices = []
+        sel = self.sel.apply(group)
+        # All atoms in group that aren't in sel
+        sys = group[~np.in1d(group.indices, sel.indices)]
+
+        if not sys or not sel:
+            return sys[[]]
+
+        box = group.dimensions if self.periodic else None
+        cross_dist = distances.distance_array(sel.positions, sys.positions, box=box)
+        if self.nb_to_keep > 0:
+            indices = np.sort(np.argsort(np.sort(cross_dist, axis=0)[0, :])[: self.nb_to_keep])
+
+        return sys[np.asarray(indices, dtype=np.int64)]
+
+
 class AroundSelection(Selection):
     token = 'around'
     precedence = 1
@@ -325,6 +353,7 @@ class AroundSelection(Selection):
             indices = np.sort(pairs[:, 1])
 
         return sys[np.asarray(indices, dtype=np.int64)]
+
 
 class SphericalLayerSelection(Selection):
     token = 'sphlayer'
@@ -1553,7 +1582,7 @@ def gen_selection_class(singular, attrname, dtype, per_object):
 
         >>> gen_selection_class("resname", "resnames", object, "residue")
         <class 'MDAnalysis.core.selection._selectors.ResnameSelection'>
-    
+
     Simply generating this selector is sufficient for the keyword to be
     accessible by :meth:`~MDAnalysis.core.universe.Universe.select_atoms`,
     as that is automatically handled by
