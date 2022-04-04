@@ -68,9 +68,9 @@ selection parser. The following applies to all selections:
   grouping.
 * You can use the singular name of any topology attribute as a selection
   keyword. `Defined topology attributes`_ are listed in the User Guide.
-  Alternatively, you can define a 
+  Alternatively, you can define a
   :class:`~MDAnalysis.core.topologyattrs.TopologyAttr` yourself,
-  providing that the attribute ``dtype`` is one of ``int``, ``float``, 
+  providing that the attribute ``dtype`` is one of ``int``, ``float``,
   ``str`` (or ``object``), or ``bool``.
   However, the topology must contain this attribute information for
   the selection to work.
@@ -174,18 +174,18 @@ chiral *R | S*
 Pattern matching
 ----------------
 
-The pattern matching notation described below is used to specify 
+The pattern matching notation described below is used to specify
 patterns for matching strings (based on :mod:`fnmatch`):
 
-``?`` 
+``?``
     Is a pattern that will match any single character. For example,
     ``resname T?R`` selects residues named "TYR" and "THR".
-``*`` 
+``*``
     Is a pattern that will match multiple characters.  For example,
     ``GL*`` selects all strings that start with "GL" such as "GLU",
     "GLY", "GLX29", "GLN".
 ``[seq]``
-    Would match any character in seq. For example, "resname GL[NY]" 
+    Would match any character in seq. For example, "resname GL[NY]"
     selects all residues named "GLN" or "GLY" but would not select
     "GLU".
 ``[!seq]``
@@ -261,7 +261,11 @@ prop [abs] *property*  *operator*  *value*
     ``prop abs z <= 5.0`` selects all atoms within -5.0 <= z <= 5.0.
 
 closest *number*  *selection*
+<<<<<<< HEAD
     selects the given number of atoms that are the closest from the selection
+=======
+    selects the given number pf atoms that are the cloest from the selection
+>>>>>>> 1e023fa025c5a2e92031767b3355fee78094de40
     e.g. ``closest 7 protein`` selects the 7 atoms not belonging to protein
     that are the closest to any of its atoms.
 
