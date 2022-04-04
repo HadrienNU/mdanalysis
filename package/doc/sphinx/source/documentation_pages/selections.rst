@@ -260,6 +260,10 @@ prop [abs] *property*  *operator*  *value*
     ``prop z >= 5.0`` selects all atoms with z coordinate greater than 5.0;
     ``prop abs z <= 5.0`` selects all atoms within -5.0 <= z <= 5.0.
 
+closest *number*  *selection*
+    selects the given number of atoms that are the closest from the selection
+    e.g. ``closest 7 protein`` selects the 7 atoms not belonging to protein
+    that are the closest to any of its atoms.
 
 .. note::
    By default periodicity **is** taken into account with geometric
