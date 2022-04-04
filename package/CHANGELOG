@@ -13,6 +13,20 @@ The rules for this file:
   * release numbers follow "Semantic Versioning" http://semver.org
 
 ------------------------------------------------------------------------------
+04/04/22 HadrienNU
+
+ * 2.2.0
+
+Fixes
+
+Enhancements
+  * AtomsGroup can now be created by selecting the closest atoms from selection.
+
+Changes
+
+Deprecations
+
+
 ??/??/?? IAlibay, BFedder, inomag, Agorfa, aya9aladdin, shudipto-amin, cbouy
 
  * 2.2.0
